@@ -38,3 +38,20 @@ exports.signin = (req,res)=>{
         });
     });
 };
+exports.isAuth = (req,res,next)=>{
+    const isAuth = req.userTokenData && req.user && req.userTokenData.userId==req.user._id;
+    if(!isAuth){
+        return res.status(400).json({msg:"User is not authenticated"});
+    }
+    next();
+};
+
+exports.deleteAccount = (req,res)=>{
+    let user = req.user;
+    user.remove((err,deleteAccount)=>{
+        if(err){
+            return res.status(400).json({error:"Error 400: Something went wrong our engineers are working on it."});
+        }
+        res.json({msg:"Account Deleted"});
+    });
+};

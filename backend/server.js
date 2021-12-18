@@ -5,6 +5,7 @@ require("dotenv").config();
 
 // routes
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const app = express();
 
 // middleware
@@ -17,9 +18,12 @@ mongoose.connect(process.env.DATABASE)
     .catch((error)=>{console.log('error'+error+' connecting to db');});
 
 app.use('/api',authRoutes);
+app.use('/api',userRoutes);
 
 const port = process.env.PORT || 3000;
 
 app.listen(port,()=>{
     console.log(`port is ${port}`);
 });
+
+
