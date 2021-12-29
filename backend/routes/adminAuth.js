@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { signup, signin, deleteAccount } = require('../controller/adminAuth');
+const { signin } = require('../controller/adminAuth');
 
-router.post('/signup',signup);
-router.post('/signin',signin);
-router.delete('/delete/account',deleteAccount);
+router.post('/admin/signin',signin);
 
 module.exports = router;
