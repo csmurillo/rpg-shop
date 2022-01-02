@@ -3,11 +3,11 @@ const router = express.Router();
 
 const verifyAdminToken = require('../middleware/verifyAdminToken');
 const { isAdminAuth } = require('../controller/adminAuth');
-const { adminInformation } = require('../controller/admin');
+const { adminId, adminInformation } = require('../controller/admin');
 
-router.get('/admin/account/:userId', verifyAdminToken, isAdminAuth, adminInformation);
+router.get('/admin/account/:adminId', verifyAdminToken, isAdminAuth, adminInformation);
 
-router.param("userId", userId);
+router.param("adminId", adminId);
 
 module.exports = router;
 

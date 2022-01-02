@@ -45,7 +45,6 @@ exports.isAuth = (req,res,next)=>{
     }
     next();
 };
-
 exports.deleteAccount = (req,res)=>{
     let user = req.user;
     user.remove((err,deleteAccount)=>{

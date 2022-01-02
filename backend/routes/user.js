@@ -6,8 +6,8 @@ const { isAuth } = require('../controller/userAuth');
 const { accountInformation, updateAccountInformation, userId, updatePassword } = require('../controller/user');
 
 router.get('/user/account/:userId', verifyToken, isAuth, accountInformation);
-router.put('/user/account/update/:userId',verifyToken, isAuth, updateAccountInformation);
-router.put('/user/account/updatePassword/:userId',verifyToken, isAuth, updatePassword);
+router.put('/user/account/update/:userId', verifyToken, isAuth, updateAccountInformation);
+router.put('/user/account/updatePassword/:userId', verifyToken, isAuth, updatePassword);
 
 router.param("userId", userId);
 

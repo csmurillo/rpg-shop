@@ -15,7 +15,7 @@ exports.accountInformation=(req,res)=>{
             return res.status(401).json({error:"Account could not be found"});
         }
         user.hash_password=undefined;
-        res.json(user);
+        res.json({user});
     });
 };
 exports.updateAccountInformation=(req,res)=>{
@@ -33,6 +33,7 @@ exports.updateAccountInformation=(req,res)=>{
             if(err){
                 return res.status(401).json({error:"User could not be updated at this moment. Please try again later."});
             }
+            updatedUser.hash_password=undefined;
             res.json({success:true,user:updatedUser});
         });
     });
@@ -53,3 +54,27 @@ exports.updatePassword=(req,res)=>{
         });
     });
 };
+exports.addToOrderHistory = (req,res,next)=>{
+    let productsFromOrder=[];
+    req.body.products.forEach(product => {
+        productsFromOrder.push({
+            product_id:product.id,
+            name:product.name,
+            price:product.price,
+            quantity:product.quantity
+        });
+    });
+
+    const newOrder={};
+    newOrder.reciept_id=req.body.reciept_id;
+    newOrder.products=productsFromOrder;
+
+    User.findOneAndUpdate({_id:req.user._id},{$push:{order_history:newOrder}},{new:true},(err,userUpdated)=>{
+        if(err){
+            return res.status(401).json({error:"Could not update order history, try again at a later time."});
+        }
+        next();
+    });
+};
+
+

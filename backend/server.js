@@ -4,9 +4,12 @@ const cors = require('cors');
 require("dotenv").config();
 
 // routes
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/user');
+const userAuthRoutes = require('./routes/userAuth');
+const adminAuthRoutes = require('./routes/adminAuth');
 const productRoutes = require('./routes/product');
+const orderRoutes = require('./routes/order');
 const app = express();
 
 // middleware
@@ -18,14 +21,15 @@ mongoose.connect(process.env.DATABASE)
     .then(()=>{console.log('connect to db');})
     .catch((error)=>{console.log('error'+error+' connecting to db');});
 
-app.use('/api',authRoutes);
 app.use('/api',userRoutes);
+app.use('/api',adminRoutes);
+app.use('/api',userAuthRoutes);
+app.use('/api',adminAuthRoutes);
 app.use('/api',productRoutes);
+app.use('/api',orderRoutes);
 
 const port = process.env.PORT || 3000;
 
 app.listen(port,()=>{
     console.log(`port is ${port}`);
 });
-
-

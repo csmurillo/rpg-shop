@@ -14,14 +14,11 @@ const { product, products, createProduct, updateProduct, deleteProduct, productI
 router.get('/product/:productId',product);
 router.get('/products',products);
 
-// admin only
 router.post('/product/create/:adminId', verifyAdminToken, isAdminAuth, privledgedAdmin, createProduct);
 router.put('/product/update/:productId/:adminId', verifyAdminToken, isAdminAuth, privledgedAdmin, updateProduct);
 router.delete('/product/delete/:productId/:adminId', verifyAdminToken, isAdminAuth, privledgedAdmin, deleteProduct);
 
-
 router.param("adminId", adminId);
-router.param("userId", userId);
 router.param("productId", productId);
 
 module.exports = router;

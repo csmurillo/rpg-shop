@@ -16,10 +16,17 @@ const adminSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    email: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true
+    },
     hash_password: {
         type: String,
         required: true
     },
+    // 0 is not admin, 1 is admin, 2 is owner
     role:{
         type: Number,
         default: 1

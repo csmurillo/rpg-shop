@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     hash_password: {
         type: String,
         required: true
+    },
+    order_history:{
+        type: Array,
+        default: []
     }
 },{ timestamps: true });
 

@@ -24,6 +24,28 @@ exports.signin = (req,res)=>{
         });
     });
 };
+exports.signup = (req,res)=>{
+    const admin = new Admin(req.body);
+    admin.save((err,admin)=>{
+        if(err){
+            return res.status(400).json({
+                error:"Admin Already Exist"
+            });
+        }
+        admin.hash_password=undefined;
+        res.status(200).json(
+            admin
+        );
+    });
+};
+exports.isOwner = (req,res,next)=>{
+    console.log(req.admin.role);
+    const isOwner = req.admin.role==2;
+    if(!isOwner){
+        return res.status(400).json({error:"Sorry you dont have permission to access this resource"});
+    }
+    next();
+};
 exports.isAdminAuth = (req,res,next)=>{
     const isAuth = req.userTokenData && req.admin && req.userTokenData.userId==req.admin._id;
     if(!isAuth){
